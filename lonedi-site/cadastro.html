@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete seu Perfil - Lonedi Experience</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    input, textarea, button {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #000;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #333;
+    }
+    #avisoLogin {
+      background: #fff3cd;
+      border: 1px solid #ffe08a;
+      padding: 14px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    #avisoLogin a {
+      color: #000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Complete seu Perfil - Lonedi Experience</h2>
+
+  <div id="avisoLogin">
+    Você precisa <a href="login.html">entrar ou criar uma conta</a> antes de completar seu perfil.
+  </div>
+
+  <form id="formCadastro" style="display: none;">
+    <input type="text" id="nome" placeholder="Nome Completo" required>
+    <input type="tel" id="telefone" placeholder="Telefone / WhatsApp">
+    <input type="text" id="cpf" placeholder="CPF">
+    <input type="date" id="data_nascimento">
+    <input type="text" id="estilo_preferido" placeholder="Estilo Preferido (ex: Casual, Luxo)">
+    <textarea id="observacoes_gosto" placeholder="Gostos pessoais, marcas favoritas ou hobbies"></textarea>
+
+    <button type="submit">Salvar Perfil</button>
+  </form>
+
+  <!-- SDK do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://ymmfjyidvunqvsnvvcou.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_lqMHDVc_eTqUt6D0meTRbA_w_02jXls';
+
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let usuarioAtual = null;
+
+    async function iniciar() {
+      const { data: { session } } = await _supabase.auth.getSession();
+
+      if (!session) {
+        document.getElementById('avisoLogin').style.display = 'block';
+        document.getElementById('formCadastro').style.display = 'none';
+        return;
+      }
+
+      usuarioAtual = session.user;
+      document.getElementById('formCadastro').style.display = 'flex';
+
+      // Pré-preenche o e-mail/nome se já existir um registro do cliente
+      const { data: clienteExistente } = await _supabase
+        .from('clientes')
+        .select('*')
+        .eq('id', usuarioAtual.id)
+        .maybeSingle();
+
+      if (clienteExistente) {
+        document.getElementById('nome').value = clienteExistente.nome_completo || '';
+        document.getElementById('telefone').value = clienteExistente.telefone || '';
+        document.getElementById('cpf').value = clienteExistente.cpf || '';
+        document.getElementById('data_nascimento').value = clienteExistente.data_nascimento || '';
+        document.getElementById('estilo_preferido').value = clienteExistente.estilo_preferido || '';
+        document.getElementById('observacoes_gosto').value = clienteExistente.observacoes_gosto || '';
+      }
+    }
+
+    iniciar();
+
+    // Envio do formulário
+    document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!usuarioAtual) {
+        alert('Sessão expirada. Faça login novamente.');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const dadosCliente = {
+        id: usuarioAtual.id,
+        nome_completo: document.getElementById('nome').value,
+        email: usuarioAtual.email,
+        telefone: document.getElementById('telefone').value,
+        cpf: document.getElementById('cpf').value,
+        data_nascimento: document.getElementById('data_nascimento').value || null,
+        estilo_preferido: document.getElementById('estilo_preferido').value,
+        observacoes_gosto: document.getElementById('observacoes_gosto').value
+      };
+
+      // upsert: cria se não existir, atualiza se já existir (vinculado ao id do usuário)
+      const { error } = await _supabase
+        .from('clientes')
+        .upsert([dadosCliente], { onConflict: 'id' });
+
+      if (error) {
+        alert('Erro ao salvar perfil: ' + error.message);
+        console.error(error);
+      } else {
+        alert('Perfil salvo com sucesso!');
+      }
+    });
+  </script>
+
+</body>
+</html>

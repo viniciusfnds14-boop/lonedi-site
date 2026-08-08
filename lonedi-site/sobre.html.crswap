@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre Nós | Lonedi Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div><i class="ph ph-heart"></i> Atendimento humanizado</div>
+    <div><i class="ph ph-truck"></i> Entrega para todo o Brasil</div>
+    <div><i class="ph ph-gift"></i> Kits exclusivos</div>
+  </div>
+
+  <!-- Header / Menu -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">♡</span>
+      <h1>LONEDI</h1>
+      <span class="sub-logo">EXPERIENCE</span>
+    </div>
+    
+    <nav class="nav">
+      <a href="index.html">Início</a>
+      <a href="sobre.html" class="active">Sobre Nós</a>
+    </nav>
+
+    <div class="header-icons">
+      <i class="ph ph-user"></i>
+      <div class="cart-icon">
+        <i class="ph ph-shopping-bag"></i>
+        <span class="badge">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo exclusivo da página Sobre Nós -->
+  <section class="section-padding" style="padding: 80px 5%; text-align: center;">
+    <h3 class="section-title">Nossa História & Propósito</h3>
+    <p style="color: var(--text-muted); max-width: 650px; margin: 20px auto 0; line-height: 1.8; font-size: 1rem;">
+      Acreditamos que dar um presente vai muito além do objeto físico: é a criação de uma memória afetuosa. Curamos e montamos cada kit com foco em detalhes sensoriais, mensagens de carinho e embalagens impecáveis para transformar qualquer ocasião em um momento inesquecível.
+    </p>
+  </section>
+
+</body>
+</html>

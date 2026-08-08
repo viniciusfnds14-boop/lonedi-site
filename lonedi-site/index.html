@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lonedi Experience | Presentes Afetivos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <!-- SDK Oficial do Mercado Pago -->
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div><i class="ph ph-heart"></i> Atendimento humanizado</div>
+    <div><i class="ph ph-truck"></i> Entrega para todo o Brasil</div>
+    <div><i class="ph ph-gift"></i> Kits exclusivos</div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+        <a href="index.html" class="logo-link">
+          <img src="logo.png.png" alt="Lonedi Experience" class="logo-img">
+          <div class="logo-text-container">
+            <span class="logo-brand-name">LONEDI</span>
+            <span class="logo-experience-text">EXPERIENCE</span>
+          </div>
+        </a>
+      </div>
+    
+    <nav class="nav">
+      <a href="index.html" class="active">Início</a>
+      <a href="como-funciona.html">Como Funciona</a>
+      <a href="categorias.html">Categorias</a>
+      <a href="consultoria.html">Consultoria de Presentes</a>
+      <a href="sobre.html">Sobre Nós</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+
+    <div class="header-icons">
+      <a href="login.html" id="btnIconeLogin" style="color: inherit; text-decoration: none;">
+        <i class="ph ph-user"></i>
+      </a>
+
+      <a href="perfil.html" id="btnIconePerfil" style="display: none; align-items: center; text-decoration: none;">
+        <img id="headerUserFoto" src="" alt="Perfil" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1px solid #ccc;">
+      </a>
+      <div class="cart-icon" onclick="abrirCarrinho()" style="cursor: pointer;">
+        <i class="ph ph-shopping-bag"></i>
+        <span class="badge" id="carrinho-contador">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section Principal com Mural de Produtos -->
+  <main class="hero">
+    <div class="hero-container">
+      
+      <!-- Coluna da Esquerda: Texto -->
+      <div class="hero-content">
+        <span class="hero-subtitle">MOMENTOS INESQUECÍVEIS</span>
+        
+        <h2 class="hero-title">
+          "Cada pessoa tem uma história,<br>
+          <em>nós criamos o momento"</em>
+        </h2>
+        
+        <p class="hero-description">
+          Nunca mais tenha dúvidas do presente certo. Curadoria exclusiva e personalizada para emocionar quem você ama.
+        </p>
+        
+        <div class="hero-buttons">
+          <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20uma%20sugestão%20personalizada." target="_blank" class="btn btn-primary">
+            <i class="ph ph-whatsapp-logo"></i> Sugestão Personalizada
+          </a>
+          <a href="como-funciona.html" class="btn btn-secondary">Entenda o Processo</a>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Mural de Produtos em Destaque -->
+      <div class="hero-mural">
+        
+        <div class="product-card-hero">
+          <div class="product-badge">Mais Pedido</div>
+          <div class="product-img-placeholder" style="padding: 0; overflow: hidden; height: 160px; border-radius: 8px;">
+            <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=500&auto=format&fit=crop" alt="Kit Experiência Afeto" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <h4>Kit Experiência Afeto</h4>
+          <p>Vela aromática + Caneca gravada</p>
+          <strong style="display: block; margin: 8px 0; color: #111; font-size: 1.1rem;">R$ 149,90</strong>
+          <button class="btn btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem;" onclick="adicionarAoCarrinho('Kit Experiência Afeto', 149.90)">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product-card-hero">
+          <div class="product-badge">Exclusivo</div>
+          <div class="product-img-placeholder" style="padding: 0; overflow: hidden; height: 160px; border-radius: 8px;">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=500&auto=format&fit=crop" alt="Box Memórias" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <h4>Box Memórias</h4>
+          <p>Vinho especial + Itens de bem-estar</p>
+          <strong style="display: block; margin: 8px 0; color: #111; font-size: 1.1rem;">R$ 289,90</strong>
+          <button class="btn btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem;" onclick="adicionarAoCarrinho('Box Memórias', 289.90)">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product-card-hero">
+          <div class="product-badge">Corporativo</div>
+          <div class="product-img-placeholder" style="padding: 0; overflow: hidden; height: 160px; border-radius: 8px;">
+            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop" alt="Kit Premium Lonedi" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <h4>Kit Premium Lonedi</h4>
+          <p>Bloco de notas + Acessórios de luxo</p>
+          <strong style="display: block; margin: 8px 0; color: #111; font-size: 1.1rem;">R$ 229,90</strong>
+          <button class="btn btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem;" onclick="adicionarAoCarrinho('Kit Premium Lonedi', 229.90)">Adicionar ao Carrinho</button>
+        </div>
+
+        <div class="product-card-hero">
+          <div class="product-badge">Romântico</div>
+          <div class="product-img-placeholder" style="padding: 0; overflow: hidden; height: 160px; border-radius: 8px;">
+            <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&auto=format&fit=crop" alt="Caixa Momentos" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <h4>Caixa Momentos</h4>
+          <p>Arranjo + Chocolates finos</p>
+          <strong style="display: block; margin: 8px 0; color: #111; font-size: 1.1rem;">R$ 189,90</strong>
+          <button class="btn btn-primary" style="width: 100%; padding: 8px; font-size: 0.85rem;" onclick="adicionarAoCarrinho('Caixa Momentos', 189.90)">Adicionar ao Carrinho</button>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Banner "Nunca mais tenha dúvidas" + Categorias -->
+  <section class="section-padding bg-light">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto 40px auto;">
+      <h3 class="section-title">Nunca mais tenha dúvidas do presente certo</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Escolha uma das nossas modalidades ou solicite uma consultoria 100% personalizada para a sua ocasião.
+      </p>
+    </div>
+
+    <div class="categories-grid">
+      <div class="category-card">
+        <i class="ph ph-briefcase" style="font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+        <h4>Kits Corporativos</h4>
+        <p>Experiências marcantes e elegantes para parceiros e colaboradores.</p>
+      </div>
+      <div class="category-card">
+        <i class="ph ph-calendar-heart" style="font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+        <h4>Datas Especiais</h4>
+        <p>Aniversários, bodas, conquistas e momentos que merecem comemoração.</p>
+      </div>
+      <div class="category-card">
+        <i class="ph ph-sparkle" style="font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+        <h4>Presentes Afetivos</h4>
+        <p>Combinações sob medida com mensagens gravadas e montagem artesanal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloco do Calendário e Login de Cliente -->
+  <section class="section-padding" style="padding-bottom: 0;">
+    <div class="cta-banner-container">
+      <div class="cta-box-left">
+        <div class="cta-icon-bg">
+          <i class="ph ph-calendar-check"></i>
+        </div>
+        <div class="cta-box-text">
+          <h3>Não esqueça nenhuma data especial!</h3>
+          <p>Crie seu calendário de momentos e receba lembretes automáticos das datas importantes.</p>
+          <a href="consultoria.html" class="btn-cta-white">Criar meu calendário <i class="ph ph-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="cta-box-right">
+        <div class="cta-box-text">
+          <h3>Já é nosso cliente?</h3>
+          <p>Acesse sua conta e veja suas sugestões com base no seu histórico.</p>
+          <a href="login.html" id="btnIrLogin" class="btn-cta-outline">
+            <i class="ph ph-user"></i> Entrar na minha conta
+          </a>
+
+          <div id="areaUsuarioLogado" style="display: none; align-items: center; gap: 10px; margin-top: 10px;">
+            <img id="userFoto" src="" alt="Foto" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #ccc;">
+            <span id="userNome" style="font-weight: bold; font-size: 15px;"></span>
+            <button onclick="deslogar()" style="background: none; border: none; cursor: pointer; color: #888; font-size: 12px; text-decoration: underline;">(Sair)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra de Selos e Garantias de Segurança -->
+  <section class="guarantees-bar">
+    <div class="guarantee-item">
+      <i class="ph ph-shield-check"></i>
+      <div>
+        <strong>Compra segura</strong>
+        <span>Seus dados protegidos sempre.</span>
+      </div>
+    </div>
+
+    <div class="guarantee-item">
+      <i class="ph ph-credit-card"></i>
+      <div>
+        <strong>Pagamento facilitado</strong>
+        <span>Pix, cartão, boleto e muito mais.</span>
+      </div>
+    </div>
+
+    <div class="guarantee-item">
+      <i class="ph ph-headset"></i>
+      <div>
+        <strong>Atendimento próximo</strong>
+        <span>Fale com a gente sempre que precisar.</span>
+      </div>
+    </div>
+
+    <div class="guarantee-item">
+      <i class="ph ph-heart"></i>
+      <div>
+        <strong>Feito com propósito</strong>
+        <span>Valorizamos pessoas, histórias e momentos.</span>
+      </div>
+    </div>
+
+    <div class="guarantee-item">
+      <i class="ph ph-leaf"></i>
+      <div>
+        <strong>Sustentabilidade</strong>
+        <span>Embalagens conscientes e menos desperdício.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gaveta Lateral do Carrinho (Modal) -->
+  <div id="carrinho-modal" style="display: none; position: fixed; top: 0; right: 0; width: 320px; height: 100%; background: #ffffff; box-shadow: -2px 0 10px rgba(0,0,0,0.3); z-index: 1001; padding: 20px; box-sizing: border-box; font-family: sans-serif;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+      <h3 style="margin: 0; color: #333;">Seu Carrinho</h3>
+      <button onclick="fecharCarrinho()" style="background: none; border: none; font-size: 18px; cursor: pointer;">✕</button>
+    </div>
+
+    <!-- Lista de Itens do Carrinho -->
+    <div id="carrinho-itens" style="margin-top: 20px; max-height: calc(100% - 180px); overflow-y: auto;">
+      <p style="color: #777; font-size: 14px;">O carrinho está vazio.</p>
+    </div>
+
+    <!-- Rodapé com Total e Finalização -->
+    <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; border-top: 1px solid #ddd; padding-top: 15px;">
+      <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; margin-bottom: 15px;">
+        <span>Total:</span>
+        <span id="carrinho-total">R$ 0,00</span>
+      </div>
+      <button onclick="finalizarCompraCarrinho()" style="width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 15px;">
+        Finalizar Compra
+      </button>
+    </div>
+  </div>
+
+  <!-- Rodapé Completo -->
+  <footer class="footer-main">
+    <div class="footer-container">
+      <div class="footer-col brand-col">
+        <div class="logo-footer">
+          <img src="logo.png.png" alt="Lonedi Experience" class="logo-img-footer">
+          <div>
+            <h2>LONEDI</h2>
+            <span>EXPERIENCE</span>
+          </div>
+        </div>
+        <p>Mais que presentes, criamos experiências que emocionam, conectam e ficam na memória.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="como-funciona.html">Como Funciona</a></li>
+          <li><a href="categorias.html">Categorias</a></li>
+          <li><a href="sobre.html">Sobre Nós</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Ajuda</h4>
+        <ul>
+          <li><a href="consultoria.html">Consultoria de Presentes</a></li>
+          <li><a href="#">Calendário de Datas</a></li>
+          <li><a href="#">Minha Conta</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Fale conosco</h4>
+        <p>contato@lonedi.com.br</p>
+        <p>(11) 99999-0000</p>
+        <p>Atendimento 9h–18h</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Lonedi Experience. Todos os direitos reservados.</p>
+      <p>Feito com carinho para quem ama presentear.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Configurações do Supabase
+    const SUPABASE_URL = 'https://ymmfjyidvunqvsnvvcou.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_lqMHDVc_eTqUt6D0meTRbA_w_02jXls';
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Inicialização do Mercado Pago
+    const mp = new MercadoPago('APP_USR-86aee251-7a6a-48c8-8758-1f69e7bcde7b', {
+      locale: 'pt-BR'
+    });
+
+    // Funções do Carrinho de Compras
+    let carrinho = [];
+
+    function abrirCarrinho() {
+      document.getElementById('carrinho-modal').style.display = 'block';
+    }
+
+    function fecharCarrinho() {
+      document.getElementById('carrinho-modal').style.display = 'none';
+    }
+
+    function adicionarAoCarrinho(titulo, preco) {
+      const itemExistente = carrinho.find(item => item.titulo === titulo);
+
+      if (itemExistente) {
+        itemExistente.quantidade += 1;
+      } else {
+        carrinho.push({ titulo, preco: Number(preco), quantidade: 1 });
+      }
+
+      atualizarInterfaceCarrinho();
+      abrirCarrinho();
+    }
+
+    function removerDoCarrinho(index) {
+      carrinho.splice(index, 1);
+      atualizarInterfaceCarrinho();
+    }
+
+    function atualizarInterfaceCarrinho() {
+      const contador = document.getElementById('carrinho-contador');
+      const totalElemento = document.getElementById('carrinho-total');
+      const containerItens = document.getElementById('carrinho-itens');
+      
+      const totalItens = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+      const valorTotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+
+      if (contador) contador.innerText = totalItens;
+      if (totalElemento) totalElemento.innerText = 'R$ ' + valorTotal.toFixed(2).replace('.', ',');
+
+      if (containerItens) {
+        if (carrinho.length === 0) {
+          containerItens.innerHTML = '<p style="color: #777; font-size: 14px;">O carrinho está vazio.</p>';
+        } else {
+          containerItens.innerHTML = carrinho.map((item, index) => 
+            '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px;">' +
+              '<div>' +
+                '<strong style="font-size: 14px; display: block; color: #333;">' + item.titulo + '</strong>' +
+                '<small style="color: #666;">' + item.quantidade + 'x R$ ' + item.preco.toFixed(2).replace('.', ',') + '</small>' +
+              '</div>' +
+              '<button onclick="removerDoCarrinho(' + index + ')" style="color: red; background: none; border: none; cursor: pointer; font-size: 14px;">🗑️</button>' +
+            '</div>'
+          ).join('');
+        }
+      }
+    }
+
+    async function finalizarCompraCarrinho() {
+      if (carrinho.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+      }
+
+      // 1. Verifica se o usuário está logado no Supabase
+      const { data: { session } } = await _supabase.auth.getSession();
+
+      if (!session) {
+        alert('Você precisa estar cadastrado ou logado para finalizar a compra.');
+        window.location.href = 'cadastro.html';
+        return;
+      }
+
+      // 2. Formata os dados para o padrão que o Mercado Pago exige
+      const itensFormatados = carrinho.map(item => ({
+        title: item.titulo,
+        unit_price: Number(item.preco),
+        quantity: Number(item.quantidade)
+      }));
+
+      // 3. Solicita a criação do link de checkout
+      try {
+        const response = await fetch('/api/criar-preferencia', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ itens: itensFormatados })
+        });
+
+        const data = await response.json();
+
+        if (data.init_point) {
+          window.location.href = data.init_point;
+        } else {
+          console.error('Retorno do servidor:', data);
+          alert('Erro ao gerar o checkout do carrinho.');
+        }
+      } catch (error) {
+        console.error('Erro na requisição do checkout:', error);
+        alert('Ocorreu um erro ao processar o checkout.');
+      }
+    }
+  </script>
+</body>
+</html>
