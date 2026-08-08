@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Perfil - Lonedi Experience</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f6f0;
+      color: #333;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .profile-card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      max-width: 420px;
+      width: 100%;
+    }
+    h2 { margin-top: 0; color: #2c2c2c; font-size: 22px; text-align: center; }
+    .avatar-wrapper { text-align: center; margin-bottom: 20px; }
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 10px;
+      border: 2px solid #ddd;
+    }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #666; }
+    input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+      background: #fafafa;
+    }
+    input[type="file"] { cursor: pointer; }
+    .btn-save {
+      width: 100%;
+      padding: 12px;
+      background: #2c2c2c;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .btn-save:hover { background: #444; }
+    .btn-back {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #666;
+      text-decoration: none;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-card">
+    <h2>Meu Perfil</h2>
+    
+    <div class="avatar-wrapper">
+      <img id="previewFoto" class="avatar-preview" src="" alt="Foto de Perfil">
+    </div>
+
+    <form id="formPerfil">
+      <div class="form-group">
+        <label for="nomeCompleto">Nome Completo:</label>
+        <input type="text" id="nomeCompleto" placeholder="Digite seu nome">
+      </div>
+
+      <div class="form-group">
+        <label for="inputArquivoFoto">Escolher Foto de Perfil:</label>
+        <input type="file" id="inputArquivoFoto" accept="image/*">
+      </div>
+
+      <button type="submit" id="btnSalvar" class="btn-save">Salvar Alterações</button>
+    </form>
+
+    <a href="index.html" class="btn-back">Voltar para a Loja</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://ymmfjyidvunqvsnvvcou.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_lqMHDVc_eTqUt6D0meTRbA_w_02jXls";
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const FOTO_PADRAO = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+    
+    let usuarioAtual = null;
+    let fotoBase64Nova = null;
+
+    async function carregarPerfil() {
+      const resSession = await _supabase.auth.getSession();
+      const session = resSession.data ? resSession.data.session : null;
+
+      if (!session) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      usuarioAtual = session.user;
+      const meta = usuarioAtual.user_metadata || {};
+      const nome = meta.nome_completo || "";
+      const foto = meta.avatar_url || FOTO_PADRAO;
+
+      document.getElementById("nomeCompleto").value = nome;
+      document.getElementById("previewFoto").src = foto;
+    }
+
+    document.getElementById("inputArquivoFoto").addEventListener("change", function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          fotoBase64Nova = evt.target.result;
+          document.getElementById("previewFoto").src = fotoBase64Nova;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById("formPerfil").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById("btnSalvar");
+      btn.innerText = "Salvando...";
+      btn.disabled = true;
+
+      try {
+        const nome = document.getElementById("nomeCompleto").value;
+        const meta = usuarioAtual.user_metadata || {};
+        let avatarUrl = fotoBase64Nova || meta.avatar_url || "";
+
+        const fileInput = document.getElementById("inputArquivoFoto");
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const fileExt = file.name.split(".").pop();
+          const fileName = usuarioAtual.id + "_avatar." + fileExt;
+
+          const resUpload = await _supabase.storage
+            .from("avatars")
+            .upload(fileName, file, { upsert: true });
+
+          if (!resUpload.error) {
+            const resPublic = _supabase.storage
+              .from("avatars")
+              .getPublicUrl(fileName);
+
+            if (resPublic.data) {
+              avatarUrl = resPublic.data.publicUrl + "?t=" + new Date().getTime();
+            }
+          }
+        }
+
+        const resUpdate = await _supabase.auth.updateUser({
+          data: {
+            nome_completo: nome,
+            avatar_url: avatarUrl
+          }
+        });
+
+        if (resUpdate.error) {
+          alert("Erro ao salvar dados: " + resUpdate.error.message);
+        } else {
+          alert("Perfil atualizado com sucesso!");
+          window.location.href = "index.html";
+        }
+
+      } catch (err) {
+        alert("Ocorreu um erro ao salvar o perfil.");
+      } finally {
+        btn.innerText = "Salvar Alterações";
+        btn.disabled = false;
+      }
+    });
+
+    carregarPerfil();
+  </script>
+</body>
+</html>

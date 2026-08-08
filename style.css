@@ -1,0 +1,920 @@
+:root {
+  --primary-color: #a36f68;
+  --primary-hover: #8c5b55;
+  --bg-light: #fbf7f4;
+  --bg-white: #ffffff;
+  --text-dark: #333333;
+  --text-muted: #777777;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Montserrat', sans-serif;
+  --font-cursive: 'Sacramento', cursive;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+}
+
+/* Topbar */
+.topbar {
+  background-color: var(--primary-color);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 8px;
+  font-size: 0.8rem;
+}
+
+.topbar div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background: var(--bg-light);
+}
+
+.logo {
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.logo h1 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  letter-spacing: 4px;
+  font-weight: 400;
+}
+
+.sub-logo {
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  display: block;
+}
+
+.nav {
+  display: flex;
+  gap: 25px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+.nav a.active {
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 4px;
+}
+
+.header-icons {
+  display: flex;
+  gap: 15px;
+  font-size: 1.3rem;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 0.6rem;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Layout Ajustado da Seção Hero (Sem espaço em branco) */
+.hero {
+  padding: 50px 5%;
+  background: linear-gradient(135deg, #fdfbfb 0%, #f7eeee 100%);
+  width: 100%;
+}
+
+.hero-container {
+  max-width: 1300px; /* Expande o conteúdo até a borda direita da tela */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* Garante que os cards ocupem o espaço da direita */
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-content {
+  text-align: left;
+}
+
+/* Mural de Produtos Preenchendo Todo o Lado Direito */
+.hero-mural {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%; /* Estica o mural por toda a largura disponível */
+}
+
+.product-card-hero {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px 18px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+  border: 1px solid #f2e9e8;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-card-hero:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(190, 134, 121, 0.15);
+}
+
+.product-badge {
+  background-color: #f7eeee;
+  color: var(--primary-color);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.product-img-placeholder {
+  width: 100%;
+  height: 90px;
+  background-color: #faf4f3;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: var(--primary-color);
+  font-size: 2.2rem;
+}
+
+.product-card-hero h4 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin-bottom: 6px;
+}
+
+.product-card-hero p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Ajustes Responsivos */
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.hero-image img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Features Bar */
+.features-bar {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--bg-white);
+  padding: 30px 5%;
+  margin: 20px 5%;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 200px;
+}
+
+.icon-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #ebdcd9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.feature-item h4 {
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.feature-item p {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+/* Seção Como Funciona */
+.how-it-works {
+  padding: 60px 5%;
+  text-align: center;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.steps-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  flex: 1;
+}
+
+.step-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #ebdcd9;
+  background-color: var(--bg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.step-content h5 {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.step-content p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.step-arrow {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Banner CTA Section */
+.banner-cta-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px 5% 60px 5%;
+}
+
+.cta-card {
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.card-dark {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 40px;
+}
+
+.card-dark h3 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.card-dark p {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  max-width: 320px;
+}
+
+.cta-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.btn-outline-light {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-light {
+  background-color: #f3ece7;
+  display: flex;
+}
+
+.cta-image {
+  width: 45%;
+  height: 100%;
+}
+
+.cta-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-light .cta-content {
+  padding: 30px;
+  width: 55%;
+}
+
+.card-light h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card-light p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.btn-outline-dark {
+  border: 1px solid var(--text-dark);
+  color: var(--text-dark);
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+/* Rodapé de Garantias */
+.footer-guarantees {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--bg-light);
+  padding: 30px 5%;
+  border-top: 1px solid #ebdcd9;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 220px;
+}
+
+.guarantee-item i {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.guarantee-item h4 {
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.guarantee-item p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+/* Estilos das novas seções */
+.section-padding {
+  padding: 60px 5%;
+}
+
+.bg-white {
+  background-color: var(--bg-white);
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  background-color: var(--bg-white);
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid #ebdcd9;
+  text-align: center;
+}
+
+.category-card h4 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.category-card p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.contact-form {
+  max-width: 550px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px;
+  border: 1px solid #ebdcd9;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+}
+/* --- Novas Seções da Página Inicial --- */
+.bg-light {
+  background-color: #fdfbfb;
+}
+
+/* Quadrados de Chamada (Calendário & Cliente) */
+.cta-banner-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.cta-box-left {
+  background-color: #be8679;
+  color: #fff;
+  padding: 40px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.cta-icon-bg {
+  background: rgba(255,255,255,0.2);
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 1.8rem;
+}
+
+.cta-box-right {
+  background: linear-gradient(135deg, #f7eeee 0%, #ecd8d5 100%);
+  color: var(--text-color);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.cta-box-text h3 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.cta-box-text p {
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.btn-cta-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fff;
+  color: #be8679;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.btn-cta-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Barra de Garantias e Segurança */
+.guarantees-bar {
+  max-width: 1100px;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.8rem;
+}
+
+.guarantee-item i {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+}
+
+.guarantee-item strong {
+  display: block;
+  color: var(--text-color);
+}
+
+.guarantee-item span {
+  color: var(--text-muted);
+}
+
+/* Rodapé Principal */
+.footer-main {
+  background-color: #2b2625;
+  color: #d1c7c5;
+  padding: 60px 5% 20px 5%;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #3d3735;
+}
+
+.brand-col .logo-footer h2 {
+  font-family: var(--font-serif);
+  color: #fff;
+  font-size: 1.5rem;
+  display: inline-block;
+  letter-spacing: 2px;
+}
+
+.brand-col p {
+  font-size: 0.85rem;
+  margin-top: 15px;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.footer-col h4 {
+  color: #fff;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+  font-family: var(--font-sans);
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  color: #d1c7c5;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.footer-col p {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 20px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #998e8c;
+}
+
+@media (max-width: 768px) {
+  .cta-banner-container {
+    grid-template-columns: 1fr;
+  }
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+  .guarantees-bar {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+/* --- FORMATO E ESPAÇAMENTO DO TEXTO DA HERO --- */
+
+.hero-content {
+  text-align: left;
+}
+
+/* Subtítulo em maiúsculas com espaço abaixo */
+.hero-subtitle {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #be8679;
+  margin-bottom: 22px; /* Dá espaço vertical para o título */
+}
+
+/* Frase Principal com Fonte Clássica Serifada */
+.hero-title {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 2.8rem; /* Tamanho da fonte */
+  font-weight: 400;
+  line-height: 1.35; /* Afasta as linhas na vertical */
+  color: #2b2625;
+  margin-bottom: 25px; /* Dá espaço vertical para o parágrafo */
+}
+
+/* Destaque em itálico fluido na 2ª linha */
+.hero-title em {
+  font-style: italic;
+  color: #be8679;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Texto descritivo com mais respiro */
+.hero-description {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: #665f5e;
+  line-height: 1.7; /* Distância confortável entre as linhas */
+  max-width: 480px;
+  margin-bottom: 35px; /* Dá espaço vertical para os botões */
+}
+
+/* Espaçamento dos botões */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+/* --- ESTILO DA NOVA LOGO --- */
+
+/* Alinhamento no Cabeçalho (Topo) */
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 80px; /* Ajusta a altura da imagem da logo */
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px; /* Borda levemente arredondada caso a imagem tenha fundo escuro */
+}
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text-group h1 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1;
+  margin: 0;
+}
+
+.logo-text-group .sub-logo {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  letter-spacing: 4px;
+  color: var(--primary-color);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* Alinhamento no Rodapé */
+.logo-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.logo-img-footer {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.logo-footer h2 {
+  font-family: var(--font-serif);
+  color: #fff;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  margin: 0;
+  line-height: 1;
+}
+
+.logo-footer span {
+  font-family: var(--font-sans);
+  font-size: 0.5rem;
+  letter-spacing: 3px;
+  color: var(--primary-color);
+  display: block;
+  margin-top: 3px;
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-svg {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover .logo-svg {
+  transform: scale(1.05);
+}
+/* --- CORREÇÃO DE ESTILO E CORES DA LOGO --- */
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+/* Tamanho do Símbolo */
+.logo-img {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Organização do Texto ao lado da foto */
+.logo-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* "LONEDI" em Terracota Elegante (sem roxo) */
+.logo-brand-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  font-weight: 500;
+  color: #be8679 !important; /* Cor terracota refinada */
+  line-height: 1;
+  margin: 0;
+}
+
+/* "EXPERIENCE" em Subtítulo Nude */
+.logo-experience-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: #a37266;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 4px;
+  line-height: 1;
+}
+/* FORÇAR AUMENTO DA LOGO */
+.logo-img {
+  height: 150px !important;
+  width: auto !important;
+}
+
+.logo-brand-name {
+  font-size: 2.2rem !important;
+}
